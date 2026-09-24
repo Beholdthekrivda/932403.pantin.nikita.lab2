@@ -1,0 +1,224 @@
+:root {
+    --main-color: #FDFBF7; /* Кремовый */
+    --accent-color: #B84A35; /* Терракотовый */
+    --text-color: #332A25; /* Темно-коричневый для высокого контраста */
+    --secondary-bg: #EBE3D5; /* Теплый бежевый для aside */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--main-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+}
+
+/* Пример позиционирования */
+.intro-text {
+    position: static;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+header {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+aside {
+    background-color: var(--secondary-bg);
+    padding: 25px;
+    border-radius: 12px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.project-card {
+    position: relative; /* Пример позиционирования: relative */
+    border-radius: 15px; /* Закругленные углы */
+    padding: 25px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* Эффект «размытия фона» через псевдоэлемент */
+.project-card::before {
+    content: "";
+    position: absolute; /* Пример позиционирования: absolute */
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(135deg, #ffe8d6 0%, #ffc2a6 100%);
+    filter: blur(0px);
+    transition: filter 0.4s ease;
+    z-index: 0;
+}
+
+.project-card:hover::before {
+    filter: blur(8px); /* Размытие при наведении */
+}
+
+/* Контент внутри карточки должен быть поверх псевдоэлемента */
+.project-card h3, 
+.project-card p, 
+.project-card .card-link,
+.project-card .badge {
+    position: relative;
+    z-index: 1; 
+}
+
+.badge {
+    position: absolute; /* Дополнительный пример absolute */
+    top: 15px;
+    right: 15px;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Состояния ссылок */
+.card-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.card-link:visited {
+    color: #7A2A1A; /* Состояние :visited */
+}
+
+.card-link:hover {
+    text-decoration: underline;
+    color: #8A3A2A; /* Состояние :hover */
+}
+
+.card-link:active {
+    transform: scale(0.95);
+    color: #5A1A0A; /* Состояние :active */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Тонкая жёлтая обводка при фокусе */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #FFD700; 
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); 
+}
+
+.submit-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.submit-btn:hover {
+    background-color: #A04030;
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+    background-color: #8A3020;
+}
+
+/* Подвал */
+footer {
+    background-color: #332A25;
+    color: #FDFBF7;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.footer-link {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+.footer-link:visited {
+    color: #FFA500;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
