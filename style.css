@@ -1,224 +1,456 @@
 :root {
-    --main-color: #FDFBF7; /* Кремовый */
-    --accent-color: #B84A35; /* Терракотовый */
-    --text-color: #332A25; /* Темно-коричневый для высокого контраста */
-    --secondary-bg: #EBE3D5; /* Теплый бежевый для aside */
-    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --main-color: #FDFBF7;
+  --accent-color: #B84A35;
+  --accent-dark: #7A2A1A;
+  --text-color: #332A25;
+  --muted-text: #5A463C;
+  --secondary-bg: #EBE3D5;
+  --card-bg: #FFFFFF;
+  --border-color: #DCCBB8;
+  --footer-bg: #332A25;
+  --footer-text: #FDFBF7;
+  --footer-link: #FFD700;
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--main-color);
-    color: var(--text-color);
-    font-family: var(--font-main);
-    line-height: 1.6;
+  margin: 0;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  line-height: 1.6;
 }
 
-/* Пример позиционирования */
-.intro-text {
-    position: static;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-header {
-    background-color: var(--accent-color);
-    color: #FFFFFF;
-    padding: 40px 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+a {
+  color: var(--accent-dark);
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
 }
 
-main {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 40px;
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 16px;
+  z-index: 100;
+  background-color: var(--accent-dark);
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: 0 0 12px 12px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.skip-link:focus-visible {
+  outline-color: #FFFFFF;
+}
+
+/* ===== Шапка ===== */
+
+.page-header {
+  background-color: var(--accent-color);
+  color: #FFFFFF;
+  padding: 32px 20px 24px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.page-header h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+}
+
+.site-name {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0 auto 10px;
+  max-width: 850px;
+}
+
+.main-nav {
+  margin-top: 18px;
+}
+
+/* ===== Навигация на Flexbox ===== */
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.nav-list a {
+  display: block;
+  padding: 10px 14px;
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+}
+
+.page-header a:focus-visible {
+  outline-color: #FFFFFF;
+}
+
+/* ===== Основная сетка страницы ===== */
+
+.layout {
+  width: 100%;
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
 }
 
 .content-area {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
 }
 
-aside {
-    background-color: var(--secondary-bg);
-    padding: 25px;
-    border-radius: 12px;
-    height: fit-content;
-    position: sticky;
-    top: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.section {
+  min-width: 0;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
+.section h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--accent-dark);
 }
 
-.project-card {
-    position: relative; /* Пример позиционирования: relative */
-    border-radius: 15px; /* Закругленные углы */
-    padding: 25px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.section-note {
+  margin: 0 0 18px;
+  color: var(--muted-text);
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+/* ===== Карточки блюд на Flexbox ===== */
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 22px;
 }
 
-/* Эффект «размытия фона» через псевдоэлемент */
-.project-card::before {
-    content: "";
-    position: absolute; /* Пример позиционирования: absolute */
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: linear-gradient(135deg, #ffe8d6 0%, #ffc2a6 100%);
-    filter: blur(0px);
-    transition: filter 0.4s ease;
-    z-index: 0;
+.card {
+  flex: 1 1 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
-.project-card:hover::before {
-    filter: blur(8px); /* Размытие при наведении */
+.card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background-color: var(--secondary-bg);
 }
 
-/* Контент внутри карточки должен быть поверх псевдоэлемента */
-.project-card h3, 
-.project-card p, 
-.project-card .card-link,
-.project-card .badge {
-    position: relative;
-    z-index: 1; 
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
 }
 
-.badge {
-    position: absolute; /* Дополнительный пример absolute */
-    top: 15px;
-    right: 15px;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.dish-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
 }
 
-/* Состояния ссылок */
-.card-link {
-    display: inline-block;
-    margin-top: 15px;
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+.dish-card p {
+  margin: 0;
 }
 
-.card-link:visited {
-    color: #7A2A1A; /* Состояние :visited */
+.dish-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: auto 0 0;
+  padding-top: 16px;
 }
 
-.card-link:hover {
-    text-decoration: underline;
-    color: #8A3A2A; /* Состояние :hover */
+.meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 12px;
+  background-color: var(--secondary-bg);
+  border-radius: 999px;
 }
 
-.card-link:active {
-    transform: scale(0.95);
-    color: #5A1A0A; /* Состояние :active */
+.dish-meta dt {
+  margin: 0;
+  font-weight: 700;
+}
+
+.dish-meta dd {
+  margin: 0;
+}
+
+/* ===== Grid-галерея ингредиентов ===== */
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.ingredient-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ingredient-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background-color: var(--secondary-bg);
+}
+
+.ingredient-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+}
+
+.ingredient-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.ingredient-card p {
+  margin: 0;
+}
+
+/* ===== Aside ===== */
+
+.aside {
+  min-width: 0;
+  background-color: var(--secondary-bg);
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.aside h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  color: var(--accent-dark);
+}
+
+.aside p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Форма ===== */
+
+.feedback form {
+  max-width: 700px;
+  display: grid;
+  gap: 18px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  display: grid;
+  gap: 6px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
+  font-weight: 600;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: var(--font-main);
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
+input,
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #8A7B6D;
+  border-radius: 10px;
+  font: inherit;
+  color: var(--text-color);
+  background-color: #FFFFFF;
 }
 
-/* Тонкая жёлтая обводка при фокусе */
-input:focus, textarea:focus {
-    outline: none;
-    border-color: #FFD700; 
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); 
+input:focus-visible,
+textarea:focus-visible {
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 3px rgba(184, 74, 53, 0.18);
 }
 
 .submit-btn {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 14px 30px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.1s;
+  justify-self: start;
+  background-color: var(--accent-color);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .submit-btn:hover {
-    background-color: #A04030;
+  background-color: var(--accent-dark);
 }
 
 .submit-btn:active {
-    transform: scale(0.98);
-    background-color: #8A3020;
+  transform: scale(0.98);
 }
 
-/* Подвал */
-footer {
-    background-color: #332A25;
-    color: #FDFBF7;
-    text-align: center;
-    padding: 20px;
-    margin-top: 50px;
+/* ===== Подвал ===== */
+
+.page-footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 22px 20px;
+  margin-top: 40px;
+}
+
+.page-footer p {
+  margin: 0 0 8px;
+}
+
+.page-footer p:last-child {
+  margin-bottom: 0;
 }
 
 .footer-link {
-    color: #FFD700;
-    text-decoration: none;
+  color: var(--footer-link);
+  text-decoration: none;
 }
 
 .footer-link:visited {
-    color: #FFA500;
+  color: var(--footer-link);
 }
 
-.footer-link:hover {
-    text-decoration: underline;
+.footer-link:hover,
+.footer-link:focus-visible {
+  text-decoration: underline;
+}
+
+.page-footer a:focus-visible {
+  outline-color: var(--footer-link);
+}
+
+/* ===== Планшетная версия ===== */
+
+@media (min-width: 768px) {
+  .card {
+    flex: 1 1 calc((100% - 24px) / 2);
+  }
+
+  .ingredients-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== Десктопная версия ===== */
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: start;
+  }
+
+  .aside {
+    position: sticky;
+    top: 20px;
+  }
+
+  .card {
+    flex: 1 1 calc((100% - 48px) / 3);
+  }
+
+  .ingredients-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ===== Доступность: уменьшение анимаций ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
